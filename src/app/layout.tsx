@@ -1,4 +1,5 @@
 import Sidebar from "@/components/sidebar";
+import { Analytics } from "@vercel/analytics/react";
 import { IdCard } from "lucide-react";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
@@ -55,6 +56,8 @@ export default function RootLayout({
 
           <main className="col-span-3">{children}</main>
         </div>
+
+        <Analytics />
       </body>
     </html>
   );
