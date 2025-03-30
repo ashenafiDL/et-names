@@ -33,8 +33,8 @@ export default function Nav() {
           href={link.url}
           key={index}
           className={cn(
-            "text-gray-600 hover:text-black hover:underline",
-            pathname === link.url ? "font-bold text-black" : "",
+            "text-muted-foreground hover:text-primary/80 hover:underline",
+            pathname === link.url ? "text-primary font-bold" : "",
           )}
         >
           {link.label}
