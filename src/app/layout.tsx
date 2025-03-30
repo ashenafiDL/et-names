@@ -1,9 +1,11 @@
-import Sidebar from "@/components/sidebar";
+import Container from "@/components/container";
+import { ModeToggle } from "@/components/mode-toggle";
+import Nav from "@/components/nav";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { IdCard } from "lucide-react";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
 
 const jetBrainsMono = JetBrains_Mono({
@@ -21,43 +23,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const links = [
-    {
-      href: "https://github.com/ashenafiDL/et-names",
-      label: "GitHub",
-    },
-  ];
   return (
-    <html lang="en">
-      <body
-        className={`${jetBrainsMono.className} container mx-auto px-4 antialiased md:px-0`}
-      >
-        <header className="flex flex-row items-center justify-between border-b">
-          <div className="flex flex-row items-center gap-4 py-6 text-lg font-bold">
-            <IdCard /> ET-NAMES
-          </div>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${jetBrainsMono.className} antialiased md:px-0`}>
+        <ThemeProvider>
+          <header className="flex flex-row items-center justify-between border-b">
+            <Container className="flex flex-row items-center justify-between">
+              <div className="flex flex-row items-center gap-4 py-4 text-lg font-bold">
+                <IdCard /> ET-NAMES
+              </div>
 
-          <div>
-            {links.map((link) => (
-              <Link
-                href={link.href}
-                key={link.href}
-                className="text-lg text-gray-600 duration-200 hover:text-black hover:underline"
-                target="_blank"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </header>
+              <Nav />
 
-        <div className="grid grid-cols-1 gap-8 py-6 sm:grid-cols-5">
-          <Sidebar />
+              <ModeToggle />
+            </Container>
+          </header>
 
-          <main className="col-span-3">{children}</main>
-        </div>
+          {children}
 
-        <Analytics />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );
