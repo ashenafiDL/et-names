@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
 
+          <Toaster richColors position="top-center" />
           <Analytics />
         </ThemeProvider>
       </body>

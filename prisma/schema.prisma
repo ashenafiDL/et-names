@@ -73,15 +73,18 @@ model Verification {
 }
 
 model Name {
-  id        String         @id @default(uuid())
-  name      String         @unique
-  nicknames NameNickname[]
-  addedById String?
-  addedBy   User?          @relation(fields: [addedById], references: [id], onDelete: SetNull)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  likes     NameLike[]
-  reports   NameReport[]
+  id             String         @id @default(uuid())
+  name           String         @unique
+  nicknames      NameNickname[]
+  gender         Gender
+  meaning        String?
+  additionalInfo String?
+  addedById      String?
+  addedBy        User?          @relation(fields: [addedById], references: [id], onDelete: SetNull)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  likes          NameLike[]
+  reports        NameReport[]
 }
 
 model Nickname {
@@ -128,4 +131,10 @@ enum ReportReason {
   OFFENSIVE
   DUPLICATE
   OTHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
 }

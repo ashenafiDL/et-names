@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
           <div className="mt-8 border-t px-4 pt-8">
             <p className="text-muted-foreground text-center text-sm">
-              © 2025 Et-Names. All rights reserved.
+              © 2025 ET-NAMES. All rights reserved.
             </p>
           </div>
         </footer>
