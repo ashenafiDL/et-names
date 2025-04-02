@@ -30,7 +30,7 @@ import { TagsInput } from "./ui/tags-input";
 
 const AMHARIC_REGEX = /^[\u1200-\u137F\s]+$/;
 
-const formSchema = z.object({
+export const formSchema = z.object({
   name: z
     .string()
     .min(1, "Name is required")
@@ -69,10 +69,18 @@ export default function MyForm() {
       }
 
       toast.success(res.message);
-    } catch (error: any) {
-      toast.error(
-        error.message || "An error occurred while submitting the name.",
-      );
+      form.reset({
+        name: "",
+        nicknames: [],
+        meaning: "",
+        additionalInfo: "",
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(
+          error.message || "An error occurred while submitting the name.",
+        );
+      }
     }
   }
 
