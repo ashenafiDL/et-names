@@ -1,9 +1,16 @@
 "use server";
 
+import { formSchema } from "@/components/submit-name-form";
 import { prisma } from "@/lib/db/prisma";
+import { Name } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { User } from "better-auth";
+import * as z from "zod";
 
-export async function addName(values: any, user: User | null) {
+export async function addName(
+  values: z.infer<typeof formSchema>,
+  user: User | null,
+) {
   if (!user) {
     return { ok: false, message: "You need to be logged in to add a name." };
   }
@@ -53,12 +60,37 @@ export async function addName(values: any, user: User | null) {
       ok: true,
       message: `The name "${values.name}" has been added successfully. Thank you for your contribution!`,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage = "An unexpected error occurred. Please try again later.";
-    if (error.code === "P2002") {
-      errorMessage = `The name "${values.name}" already exists in the database.`;
+
+    if (error instanceof PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        errorMessage = `The name "${values.name}" already exists in the database.`;
+      }
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
     }
 
     return { ok: false, message: errorMessage };
+  }
+}
+
+export async function getRecentlyAdded(): Promise<Name[] | []> {
+  try {
+    const names = await prisma.name.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        nicknames: {
+          include: {
+            nickname: true,
+          },
+        },
+      },
+      take: 3,
+    });
+
+    return names;
+  } catch {
+    return [];
   }
 }

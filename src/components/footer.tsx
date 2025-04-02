@@ -25,7 +25,7 @@ export default function Footer() {
     <div className="border-t">
       <Container>
         <footer className="py-8 md:py-12">
-          <div className="flex flex-col justify-between gap-6 px-4 md:flex-row">
+          <div className="flex flex-col justify-between gap-6 md:flex-row">
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">ET-NAMES</h3>
               <p className="text-muted-foreground max-w-xs text-sm">
@@ -53,7 +53,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className="mt-8 border-t px-4 pt-8">
+          <div className="mt-8 border-t pt-8">
             <p className="text-muted-foreground text-center text-sm">
               © 2025 ET-NAMES. All rights reserved.
             </p>
