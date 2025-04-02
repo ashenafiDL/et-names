@@ -1,5 +1,7 @@
 "use client";
 
+import Container from "@/components/container";
+import SubmitNameForm from "@/components/submit-name-form";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -43,5 +45,9 @@ export default function Add() {
     );
   }
 
-  return <div>Submit form</div>;
+  return (
+    <Container className="py-16">
+      <SubmitNameForm />
+    </Container>
+  );
 }
