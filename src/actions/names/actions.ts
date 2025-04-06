@@ -7,6 +7,14 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { User } from "better-auth";
 import * as z from "zod";
 
+type NameQueryResult = {
+  data: NameWithNicknames[];
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+};
+
 export async function addName(
   values: z.infer<typeof formSchema>,
   user: User | null,
@@ -92,5 +100,81 @@ export async function getRecentlyAdded(): Promise<NameWithNicknames[] | []> {
     return names;
   } catch {
     return [];
+  }
+}
+
+export async function getAllNames(
+  currentPage: number,
+  pageSize: number,
+  searchTerm: string,
+  orderBy: "name" | "createdAt" | "likes",
+  gender: "all" | "MALE" | "FEMALE" | "UNISEX",
+): Promise<NameQueryResult | null> {
+  try {
+    // 1. Order by clause
+    let orderByClause = {};
+    if (orderBy === "likes") {
+      orderByClause = {
+        likes: {
+          _count: "desc",
+        },
+      };
+    } else if (orderBy === "createdAt") {
+      orderByClause = {
+        createdAt: "desc",
+      };
+    } else if (orderBy === "name") {
+      orderByClause = {
+        name: "asc",
+      };
+    }
+
+    // 2. Where clause with dynamic conditions
+    const whereClause: Record<string, object> = {};
+
+    if (gender && gender !== "all") {
+      whereClause.gender = {
+        equals: gender,
+      };
+    }
+
+    if (searchTerm && searchTerm.trim() !== "") {
+      whereClause.name = {
+        contains: searchTerm.trim(),
+        mode: "insensitive",
+      };
+    }
+
+    // 3. Fetch data
+    const [totalCount, names] = await Promise.all([
+      prisma.name.count({
+        where: whereClause,
+      }),
+      prisma.name.findMany({
+        where: whereClause,
+        include: {
+          nicknames: {
+            include: {
+              nickname: true,
+            },
+          },
+        },
+        orderBy: orderByClause,
+        skip: (currentPage - 1) * pageSize,
+        take: pageSize,
+      }) as Promise<NameWithNicknames[]>,
+    ]);
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+
+    return {
+      data: names,
+      totalCount,
+      totalPages,
+      currentPage,
+      pageSize,
+    };
+  } catch {
+    return null;
   }
 }

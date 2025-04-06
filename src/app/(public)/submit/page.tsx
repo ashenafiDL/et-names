@@ -19,7 +19,7 @@ export default function Add() {
 
   if (!session) {
     return (
-      <div className="flex items-center justify-center py-16">
+      <div className="flex items-center justify-center py-12">
         <Card className="w-full max-w-md p-6 text-center">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
@@ -46,7 +46,7 @@ export default function Add() {
   }
 
   return (
-    <Container className="py-16">
+    <Container className="py-12">
       <SubmitNameForm />
     </Container>
   );
