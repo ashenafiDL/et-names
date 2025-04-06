@@ -1,4 +1,5 @@
 import { getRecentlyAdded } from "@/actions/names/actions";
+import { NameWithNicknames } from "@/lib/utils/types";
 import Link from "next/link";
 import Container from "./container";
 import NameCard from "./name-card";
@@ -17,17 +18,8 @@ export default async function RecentlyAddedNames() {
             Recently Added Names
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {recentlyAdded.map((name: any, index) => {
-              return (
-                <NameCard
-                  key={index}
-                  name={name.name}
-                  nicknames={name.nicknames}
-                  gender={name.gender}
-                  meaning={name.meaning || ""}
-                  additionalInfo={name.additionalInfo || ""}
-                />
-              );
+            {recentlyAdded.map((name: NameWithNicknames, index: number) => {
+              return <NameCard key={index} name={name} />;
             })}
           </div>
           <div className="mt-10 flex justify-center">

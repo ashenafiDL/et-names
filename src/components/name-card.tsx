@@ -8,44 +8,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { NameWithNicknames } from "@/lib/utils/types";
 import { Heart, Share2 } from "lucide-react";
 
-interface Nickname {
-  nickname: {
-    nickname: string;
-  };
-}
-
-interface NameCardProps {
-  name: string;
-  nicknames: Nickname[];
-  gender: string;
-  meaning?: string;
-  additionalInfo?: string;
-}
-
-export default function NameCard({
-  name,
-  nicknames,
-  gender,
-  meaning,
-  additionalInfo,
-}: NameCardProps) {
+export default function NameCard({ name }: { name: NameWithNicknames }) {
   return (
     <Card className="overflow-hidden transition-all hover:scale-[1.02]">
       <CardHeader>
         <CardTitle>
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold">{name}</h3>
-            <Badge>{gender}</Badge>
+            <h3 className="text-2xl font-bold">{name.name}</h3>
+            <Badge>{name.gender}</Badge>
           </div>
         </CardTitle>
-        <CardDescription>{meaning}</CardDescription>
+        <CardDescription>{name.meaning}</CardDescription>
       </CardHeader>
       <CardContent className="h-full space-y-4">
-        <div>{additionalInfo}</div>
+        <div>{name.additionalInfo}</div>
         <div className="flex flex-row flex-wrap items-center gap-2">
-          {nicknames.map((nicknameObj, index) => (
+          {name.nicknames.map((nicknameObj, index) => (
             <Badge variant="secondary" key={index}>
               {nicknameObj.nickname.nickname}
             </Badge>
