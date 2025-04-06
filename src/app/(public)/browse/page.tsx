@@ -3,6 +3,7 @@
 import { getAllNames } from "@/actions/names/actions";
 import Container from "@/components/container";
 import NameCard from "@/components/name-card";
+import BrowseSkeleton from "@/components/skeleton/brwose-skeleton";
 import { Input } from "@/components/ui/input";
 import {
   Pagination,
@@ -244,7 +245,7 @@ function Browse() {
 
 export default function BrowsePage() {
   return (
-    <Suspense>
+    <Suspense fallback={<BrowseSkeleton />}>
       <Browse />
     </Suspense>
   );
