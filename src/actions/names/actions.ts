@@ -2,7 +2,7 @@
 
 import { formSchema } from "@/components/submit-name-form";
 import { prisma } from "@/lib/db/prisma";
-import { Name } from "@prisma/client";
+import { NameWithNicknames } from "@/lib/utils/types";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { User } from "better-auth";
 import * as z from "zod";
@@ -75,7 +75,7 @@ export async function addName(
   }
 }
 
-export async function getRecentlyAdded(): Promise<Name[] | []> {
+export async function getRecentlyAdded(): Promise<NameWithNicknames[] | []> {
   try {
     const names = await prisma.name.findMany({
       orderBy: { createdAt: "desc" },
