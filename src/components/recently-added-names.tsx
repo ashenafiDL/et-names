@@ -11,7 +11,7 @@ export default async function RecentlyAddedNames() {
   if (recentlyAdded.length === 0) return;
 
   return (
-    <section className="bg-muted/50 py-12">
+    <section className="bg-muted/50 border-y py-12">
       <Container>
         <div>
           <h2 className="mb-8 text-center text-2xl font-bold md:text-3xl">

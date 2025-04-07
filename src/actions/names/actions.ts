@@ -178,3 +178,39 @@ export async function getAllNames(
     return null;
   }
 }
+
+export async function getFeaturedName(): Promise<NameWithNicknames | null> {
+  try {
+    // Get today's date string (YYYY-MM-DD)
+    const today = new Date().toISOString().split("T")[0];
+    const allNames = await prisma.name.findMany({
+      select: {
+        id: true,
+      },
+    });
+
+    if (!allNames.length) return null;
+
+    // Use a deterministic hash to pick same name every day
+    const hash = [...today].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+
+    const index = hash % allNames.length;
+
+    const featuredName = await prisma.name.findUnique({
+      where: {
+        id: allNames[index].id,
+      },
+      include: {
+        nicknames: {
+          include: {
+            nickname: true,
+          },
+        },
+      },
+    });
+
+    return featuredName;
+  } catch {
+    return null;
+  }
+}

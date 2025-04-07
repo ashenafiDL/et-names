@@ -4,7 +4,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Nav from "@/components/nav";
 import UserAvatar from "@/components/user-avatar";
 import { Analytics } from "@vercel/analytics/react";
-import { IdCard } from "lucide-react";
+import { IdCardIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
             href="/"
             className="flex flex-row items-center gap-4 py-4 text-lg font-bold"
           >
-            <IdCard /> ET-NAMES
+            <IdCardIcon /> ET-NAMES
           </Link>
 
           <Nav />

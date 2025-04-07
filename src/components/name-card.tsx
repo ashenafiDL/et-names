@@ -9,11 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { NameWithNicknames } from "@/lib/utils/types";
-import { Heart, Share2 } from "lucide-react";
+import { HeartIcon, Share2Icon } from "lucide-react";
 
 export default function NameCard({ name }: { name: NameWithNicknames }) {
   return (
-    <Card className="overflow-hidden transition-all hover:scale-[1.02]">
+    <Card className="overflow-hidden transition-all hover:scale-[0.98]">
       <CardHeader>
         <CardTitle>
           <div className="flex items-center justify-between">
@@ -35,11 +35,11 @@ export default function NameCard({ name }: { name: NameWithNicknames }) {
       </CardContent>
       <CardFooter className="mt-2 flex justify-end gap-4">
         <Button variant="outline" size="sm">
-          <Heart className="mr-1 size-4" />
+          <HeartIcon className="mr-1 size-4" />
           Like
         </Button>
         <Button variant="outline" size="sm">
-          <Share2 className="mr-1 size-4" />
+          <Share2Icon className="mr-1 size-4" />
           Share
         </Button>
       </CardFooter>

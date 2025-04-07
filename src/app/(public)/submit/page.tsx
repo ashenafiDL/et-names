@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useSession } from "@/lib/auth-client";
-import { LogIn } from "lucide-react";
+import { LogInIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Add() {
@@ -36,7 +36,7 @@ export default function Add() {
           <CardFooter className="flex justify-center">
             <Button className="mt-4" variant="default" asChild>
               <Link href="/auth?redirect=/submit">
-                <LogIn className="mr-2 h-4 w-4" /> Log In
+                <LogInIcon className="mr-2 h-4 w-4" /> Log In
               </Link>
             </Button>
           </CardFooter>
