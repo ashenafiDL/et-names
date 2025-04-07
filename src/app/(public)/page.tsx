@@ -1,4 +1,5 @@
 import Container from "@/components/container";
+import FeaturedName from "@/components/featured-name";
 import RecentlyAddedNames from "@/components/recently-added-names";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-16 flex flex-col justify-center gap-4 md:flex-row">
+          <div className="my-16 flex flex-col justify-center gap-4 md:flex-row">
             <Button asChild size="lg" className="px-8">
               <Link href="/submit">Add a Name</Link>
             </Button>
@@ -25,6 +26,8 @@ export default function Home() {
               <Link href="/browse">Browse Names</Link>
             </Button>
           </div>
+
+          <FeaturedName />
         </section>
       </Container>
 

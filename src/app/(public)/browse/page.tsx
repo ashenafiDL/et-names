@@ -183,7 +183,7 @@ function Browse() {
           </div>
         </div>
 
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="space-y-1">
             <p className="text-muted-foreground text-sm">Sort by:</p>
             <Tabs
