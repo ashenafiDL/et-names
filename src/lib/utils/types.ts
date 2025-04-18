@@ -11,3 +11,5 @@ export type NameWithNicknames = Name & {
   };
   addedBy?: User | null;
 };
+
+export type tParams = Promise<{ slug: string[] }>;
