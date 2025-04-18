@@ -13,18 +13,16 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatCustomDate } from "@/lib/utils/formatters";
-import { NameWithNicknames } from "@/lib/utils/types";
+import { NameWithNicknames, tParams } from "@/lib/utils/types";
 import { Calendar, Clock, Heart } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: tParams;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const decoded = decodeURIComponent(slug);
+  const { slug } = await props.params;
+  const decoded = decodeURIComponent(slug[1]);
 
   try {
     const res = await fetch(
@@ -52,7 +50,7 @@ export async function generateMetadata({
           : "Collection of Ethiopian names.",
       },
     };
-  } catch (err) {
+  } catch {
     return {
       openGraph: {
         title: "et-names",
@@ -62,8 +60,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function Name({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+export default async function Name(props: { params: tParams }) {
+  const { slug } = await props.params;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/names?name=${slug}`,
   );

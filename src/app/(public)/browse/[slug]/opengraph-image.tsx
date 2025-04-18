@@ -93,7 +93,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
         ],
       },
     );
-  } catch (error) {
+  } catch {
     return new Response("Failed to generate image", { status: 500 });
   }
 }
