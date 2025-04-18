@@ -1,4 +1,4 @@
-import { Name } from "@prisma/client";
+import { Name, User } from "@prisma/client";
 
 export type NameWithNicknames = Name & {
   nicknames: {
@@ -6,4 +6,8 @@ export type NameWithNicknames = Name & {
       nickname: string;
     };
   }[];
+  _count?: {
+    likes?: number;
+  };
+  addedBy?: User | null;
 };

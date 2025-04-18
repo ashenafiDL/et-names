@@ -10,6 +10,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { HeartIcon, Share2Icon } from "lucide-react";
+import SharePopup from "./share-popup";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 export default async function FeaturedName() {
   const featuredName = await getFeaturedName();
@@ -48,13 +57,26 @@ export default async function FeaturedName() {
       </CardContent>
       <CardFooter className="flex justify-center gap-4 pt-0">
         <Button variant="outline" size="sm">
-          <HeartIcon className="mr-2 h-4 w-4" />
+          <HeartIcon className="mr-2 size-4" />
           {likeCount}
         </Button>
-        <Button variant="outline" size="sm">
-          <Share2Icon className="mr-2 h-4 w-4" />
-          Share
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              <Share2Icon className="mr-1 size-4" />
+              Share
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader className="mb-2">
+              <DialogTitle>Share this name</DialogTitle>
+              <DialogDescription>
+                Share this beautiful Ethiopian name with friends and family.
+              </DialogDescription>
+            </DialogHeader>
+            <SharePopup name={featuredName.name} />
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );
