@@ -214,3 +214,30 @@ export async function getFeaturedName(): Promise<NameWithNicknames | null> {
     return null;
   }
 }
+
+export async function getNameByName(
+  name: string,
+): Promise<NameWithNicknames | null> {
+  try {
+    const existingName = await prisma.name.findUnique({
+      where: { name: name },
+      include: {
+        nicknames: {
+          include: {
+            nickname: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+        addedBy: true,
+      },
+    });
+
+    return existingName;
+  } catch {
+    return null;
+  }
+}
