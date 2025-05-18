@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { NameWithNicknames } from "@/lib/utils/types";
+import Link from "next/link";
+import NameActions from "./name-actions";
 import {
   Card,
   CardContent,
@@ -7,19 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { NameWithNicknames } from "@/lib/utils/types";
-import { HeartIcon, Share2Icon } from "lucide-react";
-import Link from "next/link";
-import SharePopup from "./share-popup";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+} from "./ui/card";
 
 export default function NameCard({ name }: { name: NameWithNicknames }) {
   return (
@@ -46,27 +36,7 @@ export default function NameCard({ name }: { name: NameWithNicknames }) {
         </CardContent>
       </Link>
       <CardFooter className="mt-2 flex justify-end gap-4">
-        <Button variant="outline" size="sm">
-          <HeartIcon className="mr-1 size-4" />
-          Like
-        </Button>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="sm">
-              <Share2Icon className="mr-1 size-4" />
-              Share
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader className="mb-2">
-              <DialogTitle>Share this name</DialogTitle>
-              <DialogDescription>
-                Share this beautiful Ethiopian name with friends and family.
-              </DialogDescription>
-            </DialogHeader>
-            <SharePopup name={name.name} />
-          </DialogContent>
-        </Dialog>
+        <NameActions name={name} showLike showShare />
       </CardFooter>
     </Card>
   );

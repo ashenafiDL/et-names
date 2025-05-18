@@ -26,7 +26,7 @@ export async function generateMetadata(props: {
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/names?name=${decoded}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/name?name=${decoded}`,
     );
     if (!res.ok) throw new Error("Name not found");
 
@@ -63,22 +63,12 @@ export async function generateMetadata(props: {
 export default async function Name(props: { params: tParams }) {
   const { slug } = await props.params;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/names?name=${slug}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/name?name=${slug}`,
   );
 
   if (!res.ok) notFound();
 
-  const {
-    name,
-    gender,
-    meaning,
-    additionalInfo,
-    nicknames,
-    _count,
-    addedBy,
-    createdAt,
-    updatedAt,
-  }: NameWithNicknames = await res.json();
+  const name: NameWithNicknames = await res.json();
 
   return (
     <Container>
@@ -87,19 +77,21 @@ export default async function Name(props: { params: tParams }) {
           <Card>
             <CardHeader className="text-center">
               <div className="mb-2">
-                <Badge>{gender}</Badge>
+                <Badge>{name.gender}</Badge>
               </div>
 
-              <h1 className="text-4xl font-bold md:text-5xl">{name}</h1>
+              <h1 className="text-4xl font-bold md:text-5xl">{name.name}</h1>
             </CardHeader>
 
             <CardContent className="space-y-6 text-center">
-              <p className="text-muted-foreground mt-2 text-xl">{meaning}</p>
+              <p className="text-muted-foreground mt-2 text-xl">
+                {name.meaning}
+              </p>
 
-              <div>{additionalInfo}</div>
+              <div>{name.additionalInfo}</div>
 
               <div className="flex flex-row items-center justify-center gap-2">
-                {nicknames.map((nicknameObj, index) => (
+                {name.nicknames.map((nicknameObj, index) => (
                   <Badge variant="secondary" key={index} className="text-lg">
                     {nicknameObj.nickname.nickname}
                   </Badge>
@@ -108,7 +100,7 @@ export default async function Name(props: { params: tParams }) {
             </CardContent>
 
             <CardFooter className="flow-row mt-4 flex justify-center">
-              <NameActions />
+              <NameActions name={name} showLike showShare showReport />
             </CardFooter>
           </Card>
 
@@ -134,14 +126,14 @@ export default async function Name(props: { params: tParams }) {
                       <div className="flex items-center gap-2">
                         <Avatar className="size-4">
                           <AvatarImage
-                            src={addedBy?.image || ""}
-                            alt={addedBy?.name}
+                            src={name.addedBy?.image || ""}
+                            alt={name.addedBy?.name}
                           />
                           <AvatarFallback className="text-sm">
-                            {addedBy?.name.charAt(0)}
+                            {name.addedBy?.name.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
-                        <span>{addedBy?.name}</span>
+                        <span>{name.addedBy?.name}</span>
                       </div>
                     </div>
 
@@ -151,7 +143,7 @@ export default async function Name(props: { params: tParams }) {
                       </h3>
                       <div className="flex items-center gap-2">
                         <Calendar className="text-muted-foreground size-4" />
-                        <span>{formatCustomDate(createdAt)}</span>
+                        <span>{formatCustomDate(name.createdAt)}</span>
                       </div>
                     </div>
 
@@ -161,7 +153,7 @@ export default async function Name(props: { params: tParams }) {
                       </h3>
                       <div className="flex items-center gap-2">
                         <Clock className="text-muted-foreground size-4" />
-                        <span>{formatCustomDate(updatedAt)}</span>
+                        <span>{formatCustomDate(name.updatedAt)}</span>
                       </div>
                     </div>
 
@@ -171,7 +163,7 @@ export default async function Name(props: { params: tParams }) {
                       </h3>
                       <div className="flex items-center gap-2">
                         <Heart className="text-primary fill-primary size-4" />
-                        <span>{_count?.likes || 0} people</span>
+                        <span>{name._count?.likes || 0} people</span>
                       </div>
                     </div>
                   </div>
@@ -189,7 +181,7 @@ export default async function Name(props: { params: tParams }) {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <SharePopup name={name} />
+                  <SharePopup name={name.name} />
                 </CardContent>
               </Card>
             </TabsContent>
