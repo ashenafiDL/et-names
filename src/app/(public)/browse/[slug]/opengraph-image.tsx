@@ -11,7 +11,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
     const { slug } = await params;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/names?name=${slug}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/name?name=${slug}`,
     );
 
     if (!res.ok) throw new Error("Name not found");

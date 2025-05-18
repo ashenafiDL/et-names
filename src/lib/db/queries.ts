@@ -124,6 +124,11 @@ export async function getFeaturedName(): Promise<NameWithNicknames | null> {
             nickname: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
 
