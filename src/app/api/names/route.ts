@@ -1,4 +1,4 @@
-import { getNameByName } from "@/actions/names/actions";
+import { getNameByName } from "@/lib/db/queries";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

@@ -1,9 +1,8 @@
 "use client";
 
-import { getAllNames } from "@/actions/names/actions";
 import Container from "@/components/container";
 import NameCard from "@/components/name-card";
-import BrowseSkeleton from "@/components/skeleton/brwose-skeleton";
+import BrowseSkeleton from "@/components/skeleton/browse-skeleton";
 import { Input } from "@/components/ui/input";
 import {
   Pagination,
@@ -20,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getAllNames } from "@/lib/db/queries";
 import { NameWithNicknames } from "@/lib/utils/types";
 import { SearchIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
