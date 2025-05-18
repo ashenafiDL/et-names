@@ -13,3 +13,11 @@ export type NameWithNicknames = Name & {
 };
 
 export type tParams = Promise<{ slug: string[] }>;
+
+export type NameQueryResult = {
+  data: NameWithNicknames[];
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+};

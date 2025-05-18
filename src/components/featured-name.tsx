@@ -1,4 +1,3 @@
-import { getFeaturedName } from "@/actions/names/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getFeaturedName } from "@/lib/db/queries";
 import { HeartIcon, Share2Icon } from "lucide-react";
 import SharePopup from "./share-popup";
 import {

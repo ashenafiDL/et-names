@@ -1,4 +1,4 @@
-import { getRecentlyAdded } from "@/actions/names/actions";
+import { getRecentlyAdded } from "@/lib/db/queries";
 import { NameWithNicknames } from "@/lib/utils/types";
 import Link from "next/link";
 import Container from "./container";

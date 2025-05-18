@@ -12,7 +12,7 @@ export default function LoginPage({ children }: { children: React.ReactNode }) {
 
         <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
           {
-            "* This is a password-less login so you don't need to set passwords."
+            "* This is a password-less login, so you don't need to set passwords."
           }
         </div>
       </div>
