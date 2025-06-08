@@ -21,3 +21,23 @@ export type NameQueryResult = {
   currentPage: number;
   pageSize: number;
 };
+
+export type SocialSignInProviders =
+  | "github"
+  | "apple"
+  | "discord"
+  | "facebook"
+  | "google"
+  | "microsoft"
+  | "spotify"
+  | "twitch"
+  | "twitter"
+  | "dropbox"
+  | "linkedin"
+  | "gitlab"
+  | "tiktok"
+  | "reddit"
+  | "roblox"
+  | "vk"
+  | "kick"
+  | "zoom";

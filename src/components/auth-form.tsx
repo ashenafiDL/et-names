@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { SocialSignInProviders } from "@/lib/utils/types";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -17,9 +18,9 @@ function AuthForm({ className, ...props }: React.ComponentProps<"div">) {
   const params = useSearchParams();
   const redirectUrl = params.get("redirect");
 
-  const signInWithGitHub = async () => {
+  const signInWithSocial = async (provider: SocialSignInProviders) => {
     await signIn.social({
-      provider: "github",
+      provider: provider,
       callbackURL: redirectUrl ?? "/",
     });
   };
@@ -39,7 +40,7 @@ function AuthForm({ className, ...props }: React.ComponentProps<"div">) {
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={signInWithGitHub}
+                onClick={() => signInWithSocial("github")}
               >
                 <svg
                   role="img"
@@ -52,7 +53,11 @@ function AuthForm({ className, ...props }: React.ComponentProps<"div">) {
                 </svg>
                 Continue with GitHub
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => signInWithSocial("google")}
+              >
                 <svg
                   role="img"
                   viewBox="0 0 24 24"
