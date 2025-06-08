@@ -1,13 +1,13 @@
 "use server";
 
-import { formSchema } from "@/components/submit-name-form";
+import { addNameFormSchema } from "@/components/submit-name-form";
 import { prisma } from "@/lib/db/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { User } from "better-auth";
 import * as z from "zod";
 
 export async function addName(
-  values: z.infer<typeof formSchema>,
+  values: z.infer<typeof addNameFormSchema>,
   user: User | null,
 ) {
   if (!user) {

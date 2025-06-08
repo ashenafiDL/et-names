@@ -30,7 +30,7 @@ import { TagsInput } from "./ui/tags-input";
 
 const AMHARIC_REGEX = /^[\u1200-\u137F\s]+$/;
 
-export const formSchema = z.object({
+export const addNameFormSchema = z.object({
   name: z
     .string()
     .min(1, "Name is required")
@@ -46,8 +46,8 @@ export const formSchema = z.object({
 export default function MyForm() {
   const { data: session } = useSession();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof addNameFormSchema>>({
+    resolver: zodResolver(addNameFormSchema),
     defaultValues: {
       name: "",
       nicknames: [],
@@ -56,7 +56,7 @@ export default function MyForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof addNameFormSchema>) {
     try {
       if (!session?.user) {
         toast.error("You must be logged in to submit a name.");

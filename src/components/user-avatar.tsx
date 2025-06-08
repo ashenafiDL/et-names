@@ -2,8 +2,10 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut, useSession } from "@/lib/auth-client";
-import { LogOutIcon } from "lucide-react";
+import { LogInIcon, LogOutIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +17,6 @@ export default function UserAvatar() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  if (!session) return;
-
   const handleSignOut = async () =>
     await signOut({
       fetchOptions: {
@@ -25,6 +25,18 @@ export default function UserAvatar() {
         },
       },
     });
+
+  if (!session) {
+    return (
+      <div>
+        <Button variant="outline" asChild>
+          <Link href="/auth">
+            <LogInIcon />
+          </Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <DropdownMenu>
